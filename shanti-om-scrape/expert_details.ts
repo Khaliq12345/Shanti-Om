@@ -1,8 +1,10 @@
 import TurndownService from 'turndown';
+import { v4 as uuidv4 } from 'uuid';
 
 
 // Extrait les informations d'un expert
 export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): {
+    expert_id: number;
     expert_name: string;
     expert_photo: string;
     expert_shortBio: string;
@@ -23,7 +25,10 @@ export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): {
     const turndownService = new TurndownService();
     const expert_fullBio = turndownService.turndown(expertSection.html());
 
+    const expert_id: number = Date.now() + Math.floor(Math.random() * 1000);
+
     return {
+      expert_id,
       expert_name,
       expert_photo,
       expert_shortBio,

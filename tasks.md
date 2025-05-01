@@ -33,3 +33,12 @@ return:
 
 //site url
 https://www.shanti.om/
+
+//destination
+name
+cover (image)
+Liaison expert (faux generer un id unique pour l'expert et tu l'ajoute ici)
+description (Markdown)
+
+Ajouter au Markdown
+Sauvegarde dans un csv
