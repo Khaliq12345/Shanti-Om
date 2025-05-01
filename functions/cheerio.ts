@@ -34,9 +34,13 @@ export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): {
   {
     const expertSection = $(selector);
 
-    const expert_name = expertSection.find('span[class*="name"]').first().text().trim();
-    const expert_photo = expertSection.find('img').first().attr('src') || '';
-    const expert_shortBio = expertSection.find('span[class*="where"]').first().text().trim();
+    const expert_name = expertSection.find('span.name').first().text().trim();
+    const expert_shortBio = expertSection.find('span.where').first().text().trim();
+
+    let expert_photo = expertSection.find('img').first().attr('src') || '';
+    if (!expert_photo.startsWith('http')) {
+        expert_photo = `https:${expert_photo}`;
+    }
 
     // Convertir le HTML en Markdown
     const turndownService = new TurndownService();
@@ -59,9 +63,13 @@ export function extractProgramDetails($: cheerio.CheerioAPI, selector: string): 
   } {
     const programSection = $(selector);
 
-    const program_url = programSection.find('span[class*="name"]').first().text().trim();
-    const program_title = programSection.find('img').first().attr('src') || '';
-    const program_cover = programSection.find('span[class*="where"]').first().text().trim();
+    const program_url = programSection.first().attr('href') || '';
+    const program_title = programSection.find('div.card-body div.title span').first().text().trim();
+
+    let program_cover = programSection.find('img.card-img').first().attr('src') || '';
+    if (!program_cover.startsWith('http')) {
+        program_cover = `https:${program_cover}`;
+    }
 
     return {
         program_url,

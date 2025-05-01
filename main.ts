@@ -1,10 +1,13 @@
-import { extractExpertDetails, loadCheerioDocument } from "./functions/cheerio";
+import { extractExpertDetails, extractProgramDetails, loadCheerioDocument } from "./functions/cheerio";
 
 async function main() {
-  const $ = await loadCheerioDocument("https://www.shanti.om/voyage-bien-etre-bali/")
+  const $ = await loadCheerioDocument("https://www.shanti.om/voyage-bien-etre-inde/")
 
-  const anyExpertDetails = extractExpertDetails($, 'div.expert')
-  console.log(anyExpertDetails)
+  const anExpertDetails = extractExpertDetails($, 'div.expert')
+  // console.log(anExpertDetails)
+
+  const anProgramDetails = extractProgramDetails($, 'div.card a')
+  // console.log(anProgramDetails)
 }
 
 main()
