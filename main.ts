@@ -13,7 +13,7 @@ async function main() {
   // console.log(anProgramDetails)
 
   const anDestinationDetails = extractDestinationDetails($)
-  console.log(anDestinationDetails)
+  // console.log(anDestinationDetails)
 }
 
 main()
