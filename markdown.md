@@ -21,7 +21,7 @@ arg -> document cheerio du expert
 return:
     expert_name
     expert_photo
-    expert_shortBio 
+    expert_shortBio
     expert_fullBio (mardown)
 
 //third function
