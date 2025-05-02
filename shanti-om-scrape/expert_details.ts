@@ -1,5 +1,5 @@
 import TurndownService from 'turndown';
-import { v4 as uuidv4 } from 'uuid';
+import { saveExpertToCsv } from '../utils/save_to_csv';
 
 
 // Extrait les informations d'un expert
@@ -27,11 +27,17 @@ export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): {
 
     const expert_id: number = Date.now() + Math.floor(Math.random() * 1000);
 
-    return {
+    const expert = {
       expert_id,
       expert_name,
       expert_photo,
       expert_shortBio,
       expert_fullBio,
     };
+
+    saveExpertToCsv(
+      expert,
+      `data/expert_${expert_name.toLowerCase()}_${expert_id}.csv`
+    );
+    return expert
 }

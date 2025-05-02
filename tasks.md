@@ -42,3 +42,7 @@ description (Markdown)
 
 Ajouter au Markdown
 Sauvegarde dans un csv
+
+
+//seo
+{"metaTitle": "", "metaDescription": "", "metaImage": "", "metaSocial": "", "structuredData": "all", "metaRobots": "", "metaViewport": "", "canonicalURL": ""}
