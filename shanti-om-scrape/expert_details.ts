@@ -3,13 +3,7 @@ import { saveExpertToCsv } from '../utils/save_to_csv';
 
 
 // Extrait les informations d'un expert
-export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): {
-    expert_id: number;
-    expert_name: string;
-    expert_photo: string;
-    expert_shortBio: string;
-    expert_fullBio: any;
-  }
+export function extractExpertDetails($: cheerio.CheerioAPI, selector: string): Expert
   {
     const expertSection = $(selector);
 

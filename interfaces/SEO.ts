@@ -7,4 +7,4 @@ interface MetaData {
     metaRobots: string;
     metaViewport: string;
     canonicalURL: string;
-  }
+}
