@@ -78,7 +78,7 @@ export function extractProgramDetails($: CheerioAPI, url: string): Program {
 
 
 // get the slug from the url of page
-function extractSlug(url: string) {
+export function extractSlug(url: string) {
     const base = 'https://www.shanti.om/' as string;
     if (!url.startsWith(base)) return '';
     const path = url.slice(base.length).replace(/^\/+/, '');
