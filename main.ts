@@ -22,9 +22,9 @@ const urls: string[] = [
 async function main() {
   // go through all the destinations and save the needed data
   urls.map(async (url) => {
-      console.log(`Destination: ${url}`)
-      const $ = await loadCheerioDocument(url)
-      await extractDestinationDetails($, url)
+    console.log(`Destination: ${url}`)
+    const $ = await loadCheerioDocument(url)
+    await extractDestinationDetails($, url)
   })
 }
 

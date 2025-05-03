@@ -38,7 +38,7 @@ export function extractProgramDetails($: CheerioAPI, url: string): Program {
     program_more_info = program_more_info.replace("(//bos.shantitravel.com", "(https://bos.shantitravel.com")
 
 
-    // extract and save the steps to a csv
+    // Extract and save the steps to a csv
     const steps: Step[] = []
     $('div.program-days').map((i, el) => {
         const title = $(el).find('div.title:first').text().trim() || ''
@@ -57,8 +57,8 @@ export function extractProgramDetails($: CheerioAPI, url: string): Program {
         })
     })
     saveToCsv(json2csv(steps), './data/steps.csv')
-    
-    // structure the program data
+
+    // Structure the program data
     const program_expert_id = extractExpertDetails($, 'div.expert').expert_id
     const program = {
         program_id,
@@ -77,7 +77,7 @@ export function extractProgramDetails($: CheerioAPI, url: string): Program {
 }
 
 
-// get the slug from the url of page
+// Get the slug from the url of page
 export function extractSlug(url: string) {
     const base = 'https://www.shanti.om/' as string;
     if (!url.startsWith(base)) return '';

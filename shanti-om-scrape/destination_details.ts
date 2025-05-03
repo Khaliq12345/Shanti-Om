@@ -29,9 +29,8 @@ export async function extractDestinationDetails($: CheerioAPI, url: string): Pro
     const turndownService = new TurndownService();
     let destination_description = turndownService.turndown($('div#pills-intro').html() || "") as string;
     destination_description = destination_description.replace("(//bos.shantitravel.com", "(https://bos.shantitravel.com")
-    
 
-    // extract and save the destination expert info
+    // Extract and save the destination expert info
     const destination_expert_id = extractExpertDetails($, 'div.expert').expert_id
 
     // Extract and save the programs of the destination to a csv
@@ -51,7 +50,7 @@ export async function extractDestinationDetails($: CheerioAPI, url: string): Pro
     let csvString = json2csv(destination_programs)
     saveToCsv(csvString, './data/programs.csv')
 
-    // save the destination info
+    // Save the destination info
     const destination = {
         destination_id,
         destination_name,

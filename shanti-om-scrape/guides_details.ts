@@ -7,7 +7,6 @@ const guides = [{
     guide_url: "https://www.shanti.om/fr/guide-voyage-indonesie/bali"
 }]
 
-
 const extractGuideInfo = (guide_url: string, cover_url: string, destination_id: string) => {
     // do the parsing
     return {

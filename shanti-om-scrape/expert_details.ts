@@ -8,7 +8,6 @@ import { json2csv } from 'json-2-csv';
 // Extrait les informations d'un expert
 export function extractExpertDetails($: CheerioAPI, selector: string): Expert
   {
-
     // parse the expert details
     const expertSection = $(selector);
     const expert_name = expertSection.find('span.name').first().text().trim();
