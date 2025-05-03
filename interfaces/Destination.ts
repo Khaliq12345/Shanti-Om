@@ -1,4 +1,6 @@
-interface Destination {
+import { MetaData } from '../interfaces/SEO';
+
+export interface Destination {
     destination_id: number;
     destination_name: string;
     destination_slug: string;
@@ -6,5 +8,4 @@ interface Destination {
     destination_description: any;
     destination_expert_id: number;
     destination_seo: MetaData;
-    destination_programs: Program[]
 }

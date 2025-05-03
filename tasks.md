@@ -46,3 +46,13 @@ Sauvegarde dans un csv
 
 //seo
 {"metaTitle": "", "metaDescription": "", "metaImage": "", "metaSocial": "", "structuredData": "all", "metaRobots": "", "metaViewport": "", "canonicalURL": ""}
+
+//work on the encoder - work on the csv stuff
+
+//guides
+the input should be:
+{'destination_id': 11234556, 'link_to_guide': "https://"}
+
+//inspiration
+input should be:
+{..., "program_slug": 'jj_kk'} // use the slug to get the program id from the program csv

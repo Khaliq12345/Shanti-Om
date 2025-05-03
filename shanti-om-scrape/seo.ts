@@ -1,12 +1,9 @@
-export function extractSEOData($: cheerio.CheerioAPI): MetaData {
+import { CheerioAPI } from "cheerio";
+import { MetaData } from "../interfaces/SEO";
 
-    const metaSocial: Record<string, string> = {};
-    $('meta[property^="og:"], meta[name^="twitter:"]').each((_, el) => {
-        const name = $(el).attr('property') || $(el).attr('name');
-        const content = $(el).attr('content') || '';
-        if (name) metaSocial[name] = content.trim();
-    });
 
+export function extractSEOData($: CheerioAPI): MetaData {
+    // extract the seo from the metadata of the page
     const structuredData: any[] = [];
 
     $('script[type="application/ld+json"]').each((_, el) => {
@@ -20,14 +17,13 @@ export function extractSEOData($: cheerio.CheerioAPI): MetaData {
         }
     });
 
+    let metaDescription = $('meta[name="description"]').attr('content')?.trim() || ""
     return {
         "metaTitle" : $('meta[name="title"]').attr('content')?.trim() || "",
-        "metaDescription" : $('meta[name="description"]').attr('content')?.trim() || "",
+        "metaDescription" : metaDescription,
         "metaImage" : $('meta[name="image"]').attr('content')?.trim() || "",
-        "metaSocial" : metaSocial,
         "metaRobots" : $('meta[name="ROBOTS"]').attr('content')?.trim() || "",
         "metaViewport" : $('meta[name="viewport"]').attr('content')?.trim() || "",
-        "structuredData" : structuredData,
         "canonicalURL" : $('link[rel="canonical"]').attr('href')?.trim() || "",
     }
 }
