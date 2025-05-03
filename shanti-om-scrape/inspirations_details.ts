@@ -32,9 +32,9 @@ async function extractInspirationInfo(inspiration_url: string): Promise<Inspirat
     let introduction = turndownService.turndown($('div.container-fluid div.container').html() || "");
 
     const program_slugs: string[] = []
-    $('div.container div.row').map((i, el) => {
-        const title = $(el).find('div.card div.card-body span').text().trim() || ''
-        program_slugs.push(extractSlug(title))
+    $('div.container div.row div.item-trek-block').map((i, el) => {
+        const href = $(el).find('a').attr('href') || ''
+        program_slugs.push(extractSlug(href.trim()))
     })
 
     return {
