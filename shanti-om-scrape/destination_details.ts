@@ -6,7 +6,6 @@ import { loadCheerioDocument } from './cheerio';
 import { extractProgramDetails } from './program_details';
 import { CheerioAPI } from 'cheerio';
 import { Destination } from '../interfaces/Destination';
-import { json2csv } from 'json-2-csv';
 
 // Extrait les informations d'une destination
 export async function extractDestinationDetails($: CheerioAPI, url: string): Promise<Destination>
@@ -47,8 +46,7 @@ export async function extractDestinationDetails($: CheerioAPI, url: string): Pro
             return savingProgram
         }).get()
     )
-    let csvString = json2csv(destination_programs)
-    saveToCsv(csvString, './data/programs.csv')
+    saveToCsv(destination_programs, './data/programs.csv')
 
     // Save the destination info
     const destination = {
@@ -60,7 +58,6 @@ export async function extractDestinationDetails($: CheerioAPI, url: string): Pro
         destination_expert_id: destination_expert_id,
         destination_seo: extractSEOData($)
     }
-    csvString = json2csv([destination])
-    saveToCsv(csvString, './data/destinations.csv')
+    saveToCsv([destination], './data/destinations.csv')
     return destination;
 }

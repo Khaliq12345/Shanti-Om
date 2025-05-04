@@ -2,7 +2,6 @@ import TurndownService from 'turndown';
 import { saveToCsv } from '../utils/save_to_csv';
 import { CheerioAPI } from 'cheerio';
 import { Expert } from '../interfaces/Expert';
-import { json2csv } from 'json-2-csv';
 
 
 // Extrait les informations d'un expert
@@ -34,9 +33,8 @@ export function extractExpertDetails($: CheerioAPI, selector: string): Expert
       expert_shortBio,
       expert_fullBio,
     };
-    const csv = json2csv([expert])
     saveToCsv(
-      csv,
+      [expert],
       './data/experts.csv'
     );
     return expert

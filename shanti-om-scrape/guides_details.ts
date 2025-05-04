@@ -1,7 +1,6 @@
 import { Guide } from "../interfaces/Guide"
 import { saveToCsv } from "../utils/save_to_csv"
 import { loadCheerioDocument } from "./cheerio"
-import { json2csv } from 'json-2-csv';
 
 
 const guides: {destination_id: number, guide_url: string, cover_url: string}[] = [
@@ -81,7 +80,7 @@ async function main() {
             extractGuideInfo(guide.guide_url, guide.cover_url, guide.destination_id)
         )
     )
-    saveToCsv(json2csv(guide_outputs), "./data/guides.csv")
+    saveToCsv(guide_outputs, "./data/guides.csv")
     console.log(guide_outputs)
 }
 

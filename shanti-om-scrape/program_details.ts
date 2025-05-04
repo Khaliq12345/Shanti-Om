@@ -4,7 +4,6 @@ import { CheerioAPI } from 'cheerio';
 import { Program } from '../interfaces/Program';
 import { Step } from '../interfaces/Step';
 import { extractExpertDetails } from './expert_details';
-import { json2csv } from 'json-2-csv';
 import { saveToCsv } from '../utils/save_to_csv';
 
 // Extrait les informations d'un programme
@@ -56,7 +55,7 @@ export function extractProgramDetails($: CheerioAPI, url: string): Program {
             photo: stepPhoto
         })
     })
-    saveToCsv(json2csv(steps), './data/steps.csv')
+    saveToCsv(steps, './data/steps.csv')
 
     // Structure the program data
     const program_expert_id = extractExpertDetails($, 'div.expert').expert_id

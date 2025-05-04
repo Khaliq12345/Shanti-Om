@@ -1,7 +1,6 @@
 import { saveToCsv } from "../utils/save_to_csv"
 import { Inspiration } from "../interfaces/Inspiration"
 import { loadCheerioDocument } from "./cheerio"
-import { json2csv } from 'json-2-csv';
 import TurndownService from 'turndown';
 import { extractSlug } from "../utils/extract_slug";
 
@@ -50,7 +49,7 @@ async function main() {
     const inspirations: Inspiration[] = await Promise.all(
         inpiration_urls.map((url) => extractInspirationInfo(url))
     )
-    saveToCsv(json2csv(inspirations), "./data/inspirations.csv")
+    saveToCsv(inspirations, "./data/inspirations.csv")
     console.log(inspirations)
 }
 
