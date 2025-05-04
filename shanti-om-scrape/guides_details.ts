@@ -1,6 +1,8 @@
 import { Guide } from "../interfaces/Guide"
+import { Travel } from "../interfaces/Travel"
 import { saveToCsv } from "../utils/save_to_csv"
 import { loadCheerioDocument } from "./cheerio"
+import { extractTravelDetails } from "./travel_details"
 
 
 const guides: {destination_id: number, guide_url: string, cover_url: string}[] = [
@@ -42,44 +44,34 @@ const guides: {destination_id: number, guide_url: string, cover_url: string}[] =
 ]
 
 
-/* const extractGuideInfo(guide_url: string, cover_url: string, destination_id: string) => {
-    return {
-        title: $('div.container-fluid p.title').first().text().trim(),
-        body: "",
-        cover: ,
-        destination_id: destination_id
-    }
-} */
-
-/* guides.forEach((guide) => {
-    // documents = sendRequest(guide.guide_url)
-    // guide_outputs: Guide[] = []
-    // for document in documents:
-        //link_document = https://
-        //cover_document = https://
-        //guide_outputs.push(extractGuideInfo(link_document, cover_document, guide.destination_id))
-
-    // save guide
-    //saveToCsv(guide_outputs, "./data/guides.csv")
-}) */
-
-
-async function extractGuideInfo(guide_url: string, cover_url: string, destination_id: number): Promise<Guide> {
-    const $ = await loadCheerioDocument(guide_url)
-    return {
-        title: $('div.container-fluid p.title').first().text().trim(),
-        body: "",
-        cover: cover_url,
-        destination_id: destination_id
-    }
+async function extractGuideInfo(guide_url: string, destination_id): Promise<Travel[]> {
+    const $g = await loadCheerioDocument(guide_url)
+    const travels = await Promise.all(
+        $g('div.guide-card').map(async function() {
+            let travel_url = $g(this).find('a').attr('href') || ''
+            if(!travel_url.startsWith('http')) {
+                travel_url = `https://www.shanti.om/${travel_url}`
+            }
+            const $t = await loadCheerioDocument(travel_url)
+            const travel = extractTravelDetails($t)
+            let travel_pic = $g(this).find('a div.pic img').first().attr('src') || ''
+            if (!travel_pic.startsWith('http')) {
+                travel_pic = `https:${travel_pic}`;
+            }
+            return {
+                ...travel,
+                "cover": travel_pic,
+                "destination_id": destination_id
+            }
+        }).get()
+    )
+    return travels
 }
 
 async function main() {
-    const guide_outputs: Guide[] = await Promise.all(
-        guides.map((guide) =>
-            extractGuideInfo(guide.guide_url, guide.cover_url, guide.destination_id)
-        )
-    )
+    const guide_outputs: Travel[] = (await Promise.all(
+        guides.map((guide) => extractGuideInfo(guide.guide_url, guide.destination_id))
+    )).flat()
     saveToCsv(guide_outputs, "./data/guides.csv")
     console.log(guide_outputs)
 }
